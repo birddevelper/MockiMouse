@@ -74,3 +74,10 @@ MockServer :
 
 ```
 
+## How to run
+
+Run the server binary in any operating system and enjoy it :
+
+```bash
+c:\myFakeServer\mockimouse.exe 
+```
