@@ -5,14 +5,20 @@ import (
 	"strconv"
 
 	cfg "github.com/birddevelper/mockimouse/config"
+	"github.com/birddevelper/mockimouse/utils"
 	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
 
-	app := fiber.New()
+	app := fiber.New(fiber.Config{DisableStartupMessage: true})
 	api := app.Group(cfg.ConfigResolver.GetContextPath())
 	endpoints := cfg.ConfigResolver.GetEndPoints()
+
+	// print endpoint information
+	utils.PrintEndpointsInfo(endpoints)
+
+	// initiate endpointHandlers
 	endpointHandlers := make([]EndpointHandler, len(endpoints))
 
 	for i, endpoint := range endpoints {
