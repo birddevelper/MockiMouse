@@ -4,8 +4,7 @@ MockServer :
  endpoints :
   - name : loginEndpoint
     path : /login
-    contentType : application/json; charset=utf-8
-    consume : json
+    accepts : application/json
     method : POST
     delay : 3000
     scenarios :
@@ -21,7 +20,7 @@ MockServer :
               operand : equal
               value : 1234
        response: file://helloWorld.json
-       status : 200
+       
      - description : When credintial is valid
        condition :
           param :
@@ -38,8 +37,7 @@ MockServer :
 
   - name : secondEndpoint
     path : /home
-    contentType : text/html; charset=utf-8
-    consume : text
+    accepts : text json
     method : GET
     delay : 0
     scenarios :
@@ -51,11 +49,11 @@ MockServer :
               operand : equal
               value : firefox
        response: Hello FireFox
+       contentType : text/html; charset=utf-8
        status : 200
   - name : Third Endpoint
     path : /report/:personId
-    contentType : application/json; charset=utf-8
-    consume : text
+    accepts : text/plain
     method : GET
     delay : 0
     scenarios :
@@ -67,6 +65,7 @@ MockServer :
               operand : equal
               value : 1
        response: "{\"id\" : 1, \"name\" : \"Ali\" }"
+       contentType : application/json; charset=utf-8
        status : 200
 
      - description : retrieve a person by id when not exist
@@ -80,8 +79,7 @@ MockServer :
        status : 404
   - name : products list Endpoint
     path : /productList
-    contentType : application/json; charset=utf-8
-    consume : text
+    accepts : text/plain
     method : GET
     delay : 0
     scenarios :
@@ -93,6 +91,7 @@ MockServer :
               operand : equal
               value : 2
        response: file://prodcut_limit2.json
+       contentType : application/json; charset=utf-8
        status : 200
 
      - description : list products limit 4
@@ -103,4 +102,15 @@ MockServer :
               operand : equal
               value : 4
        response: file://prodcut_limit4.json
+       contentType : application/json; charset=utf-8
+       status : 200
+
+  - name : Endpoint with single Genaral Senario without condition
+    path : /general
+    method : GET
+    delay : 1000
+    scenarios :
+     - description : no condition, always show same response
+       response: Hi there, it is a general endpoint, no condition
+       contentType : text/html
        status : 200
