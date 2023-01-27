@@ -17,8 +17,31 @@ type EndpointHandler struct {
 
 func (endpointHandler *EndpointHandler) handler(c *fiber.Ctx) error {
 
+	requestContentType := c.Get("content-type")
+	requestContentTypeOK := false
+	for _, accept := range strings.Split(endpointHandler.Endpoint.Accepts, " ") {
+		if accept == strings.ToLower(requestContentType) {
+			requestContentTypeOK = true
+			break
+		}
+	}
+
+	if !requestContentTypeOK && endpointHandler.Endpoint.Accepts != "" {
+		c.Status(400)
+		return c.SendString("400 Bad Request")
+	}
+
 	scenario := endpointHandler.getMatchSenario(c)
-	c.Set("content-type", endpointHandler.Endpoint.ContentType)
+
+	// if ContentType is set in senario, set it to response header
+	if scenario.ContentType != "" {
+		c.Set("content-type", scenario.ContentType)
+	}
+	// if scenario status is not set, default would be 200
+	if scenario.Status == 0 {
+		scenario.Status = 200
+	}
+
 	c.Status(scenario.Status)
 	response, err := scenario.GetResponse()
 	if err != nil {
@@ -30,6 +53,12 @@ func (endpointHandler *EndpointHandler) handler(c *fiber.Ctx) error {
 }
 
 func (endpointHandler *EndpointHandler) getMatchSenario(c *fiber.Ctx) cfg.Scenario {
+
+	// if there exist only one senario and it has no parametes, return it
+	if len(endpointHandler.Endpoint.Scenarios) == 1 &&
+		len(endpointHandler.Endpoint.Scenarios[0].Condition.Params) == 0 {
+		return endpointHandler.Endpoint.Scenarios[0]
+	}
 
 	for _, scenario := range endpointHandler.Endpoint.Scenarios {
 
