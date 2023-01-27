@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+
+	cfg "github.com/birddevelper/mockimouse/config"
 )
 
 func GetParamFromJson(body []byte, path string) (string, error) {
@@ -23,4 +25,14 @@ func GetParamFromJson(body []byte, path string) (string, error) {
 	}
 
 	return "", errors.New("can not retrieve the parameter")
+}
+
+func PrintEndpointsInfo(endpoints []cfg.EndPoint) {
+
+	fmt.Println("-------------------------")
+	for i, endpoint := range endpoints {
+		fmt.Println(i+1, "- ", endpoint.Name, " : ", endpoint.Method, " ", endpoint.Path)
+	}
+	fmt.Println("-------------------------")
+
 }
