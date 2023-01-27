@@ -9,13 +9,12 @@ type Config struct {
 }
 
 type EndPoint struct {
-	Name        string     `yaml:"name"`
-	Path        string     `yaml:"path"`
-	ContentType string     `yaml:"contentType"`
-	Consume     string     `yaml:"consume"`
-	Method      string     `yaml:"method"`
-	Delay       int        `yaml:"delay,omitempty"`
-	Scenarios   []Scenario `yaml:"scenarios"`
+	Name      string     `yaml:"name"`
+	Path      string     `yaml:"path"`
+	Accepts   string     `yaml:"accepts,omitempty"`
+	Method    string     `yaml:"method"`
+	Delay     int        `yaml:"delay,omitempty"`
+	Scenarios []Scenario `yaml:"scenarios"`
 }
 
 type Scenario struct {
@@ -23,8 +22,9 @@ type Scenario struct {
 	Condition   struct {
 		Params []Param `yaml:"param"`
 	} `yaml:"condition,omitempty"`
-	Response string `yaml:"response"`
-	Status   int    `yaml:"status"`
+	Response    string `yaml:"response"`
+	ContentType string `yaml:"contentType,omitempty"`
+	Status      int    `yaml:"status,omitempty"`
 }
 
 type Param struct {
