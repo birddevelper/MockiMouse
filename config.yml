@@ -1,0 +1,106 @@
+MockServer :
+ contextPath : /api
+ port : 800
+ endpoints :
+  - name : loginEndpoint
+    path : /login
+    contentType : application/json; charset=utf-8
+    consume : json
+    method : POST
+    delay : 3000
+    scenarios :
+     - description : When credintial is valid
+       condition :
+         param :
+            - name : username
+              type : body
+              operand : equal
+              value : admin
+            - name : password
+              type : body
+              operand : equal
+              value : 1234
+       response: file://helloWorld.json
+       status : 200
+     - description : When credintial is valid
+       condition :
+          param :
+            - name : username
+              type : body
+              operand : equal
+              value : admin
+            - name : password
+              type : body
+              operand : notEqual
+              value : 1234
+       response : file://invalidCredintial.json
+       status : 200
+
+  - name : secondEndpoint
+    path : /home
+    contentType : text/html; charset=utf-8
+    consume : text
+    method : GET
+    delay : 0
+    scenarios :
+     - description : Agent is firefox
+       condition :
+         param :
+            - name : agent
+              type : header
+              operand : equal
+              value : firefox
+       response: Hello FireFox
+       status : 200
+  - name : Third Endpoint
+    path : /report/:personId
+    contentType : application/json; charset=utf-8
+    consume : text
+    method : GET
+    delay : 0
+    scenarios :
+     - description : retrieve a person by id when exist
+       condition :
+         param :
+            - name : personId
+              type : path
+              operand : equal
+              value : 1
+       response: "{\"id\" : 1, \"name\" : \"Ali\" }"
+       status : 200
+
+     - description : retrieve a person by id when not exist
+       condition :
+         param :
+            - name : personId
+              type : path
+              operand : notEqual
+              value : 1
+       response: "{\"message\" : \"no found\" }"
+       status : 404
+  - name : products list Endpoint
+    path : /productList
+    contentType : application/json; charset=utf-8
+    consume : text
+    method : GET
+    delay : 0
+    scenarios :
+     - description : list products limit 2
+       condition :
+         param :
+            - name : limit
+              type : query
+              operand : equal
+              value : 2
+       response: file://prodcut_limit2.json
+       status : 200
+
+     - description : list products limit 4
+       condition :
+         param :
+            - name : limit
+              type : query
+              operand : equal
+              value : 4
+       response: file://prodcut_limit4.json
+       status : 200
