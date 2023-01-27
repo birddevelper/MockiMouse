@@ -1,0 +1,6 @@
+[
+{ "id": 1, "productName" : "DVD", "quantity" : 4},
+{ "id": 2, "productName" : "USB Disk", "quantity" : 10},
+{ "id": 3, "productName" : "SD Card", "quantity" : 41},
+{ "id": 4, "productName" : "JoyStick", "quantity" : 13}
+]
