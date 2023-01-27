@@ -2,7 +2,7 @@ MockServer :
  contextPath : /api
  port : 800
  endpoints :
-  - name : loginEndpoint
+  - name : Login endpoint
     path : /login
     accepts : application/json
     method : POST
@@ -35,7 +35,7 @@ MockServer :
        response : file://invalidCredintial.json
        status : 200
 
-  - name : secondEndpoint
+  - name : Home menu endpoint
     path : /home
     accepts : text json
     method : GET
@@ -51,8 +51,8 @@ MockServer :
        response: Hello FireFox
        contentType : text/html; charset=utf-8
        status : 200
-  - name : Third Endpoint
-    path : /report/:personId
+  - name : Profile endpoint
+    path : /profile/:personId
     accepts : text/plain
     method : GET
     delay : 0
@@ -77,7 +77,7 @@ MockServer :
               value : 1
        response: "{\"message\" : \"no found\" }"
        status : 404
-  - name : products list Endpoint
+  - name : Products list Endpoint
     path : /productList
     accepts : text/plain
     method : GET
@@ -105,8 +105,8 @@ MockServer :
        contentType : application/json; charset=utf-8
        status : 200
 
-  - name : Endpoint with single Genaral Senario without condition
-    path : /general
+  - name : Best movie endpoint
+    path : /bestMovies
     method : GET
     delay : 1000
     scenarios :
