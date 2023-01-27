@@ -73,7 +73,7 @@ MockServer :
        status : 200
 
 ```
-
+Put your message file in **responses** folder beside the MockiMouse binary file and call them in response parameters in config file. The file can be json, xml or html.
 ## How to run
 
 Run the server binary in any operating system and enjoy it :
@@ -81,3 +81,8 @@ Run the server binary in any operating system and enjoy it :
 ```bash
 c:\myFakeServer\mockimouse.exe 
 ```
+
+
+<p align="center">
+<img src="https://m-shaeri.ir/blog/wp-content/uploads/2023/01/mockimouse_mock_server_fake_api.jpg"  >
+</p>
