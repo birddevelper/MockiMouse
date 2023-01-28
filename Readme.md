@@ -13,7 +13,7 @@ MockiMouse is easy to use, and easy to run. In a few lines of Yamel config file 
 
 The below config is the simplest possible mock server to run. Two endpoints with single senarios without any conditional response. 
 
-To learn in more details read this article : [Mockimouse Mock server](https://m-shaeri.ir/blog/mockimouse-an-easy-to-use-mock-server-to-build-fake-dynamic-api/)
+To learn more details read this article : [Mockimouse Mock server](https://m-shaeri.ir/blog/mockimouse-an-easy-to-use-mock-server-to-build-fake-dynamic-api/)
 
 ```yaml
 MockServer :
