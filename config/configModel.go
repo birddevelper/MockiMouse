@@ -4,6 +4,7 @@ type Config struct {
 	MockServer struct {
 		ContextPath string     `yaml:"contextPath,omitempty"`
 		Port        int        `yaml:"port"`
+		Statics     string     `yaml:"staticFilesPath,omitempty"`
 		Endpoints   []EndPoint `yaml:"endpoints"`
 	} `yaml:"MockServer"`
 }

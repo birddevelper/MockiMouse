@@ -13,6 +13,9 @@ func main() {
 
 	app := fiber.New(fiber.Config{DisableStartupMessage: true})
 	api := app.Group(cfg.ConfigResolver.GetContextPath())
+
+	// static files such as image or css files
+	app.Static(cfg.ConfigResolver.GetStatics(), "./assets")
 	endpoints := cfg.ConfigResolver.GetEndPoints()
 
 	// print endpoint information
@@ -21,6 +24,7 @@ func main() {
 	// initiate endpointHandlers
 	endpointHandlers := make([]EndpointHandler, len(endpoints))
 
+	// creating endpoints
 	for i, endpoint := range endpoints {
 		endpointHandlers[i] = EndpointHandler{Endpoint: &endpoints[i]}
 		switch endpointHandlers[i].Endpoint.Method {

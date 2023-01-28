@@ -1,6 +1,7 @@
 MockServer :
  contextPath : /api
  port : 800
+ staticFilesPath : /assets
  endpoints :
   - name : Login endpoint
     path : /login

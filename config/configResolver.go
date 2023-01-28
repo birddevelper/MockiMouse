@@ -44,3 +44,13 @@ func (resolver configResolver) GetEndPoints() []EndPoint {
 
 	return resolver.config.MockServer.Endpoints
 }
+
+func (resolver configResolver) GetStatics() string {
+
+	if resolver.config.MockServer.Statics == "" {
+
+		return "/assets"
+	}
+
+	return resolver.config.MockServer.Statics
+}
