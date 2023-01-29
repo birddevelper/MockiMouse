@@ -19,7 +19,17 @@ func (endpointHandler *EndpointHandler) handler(c *fiber.Ctx) error {
 
 	requestContentType := c.Get("content-type")
 	requestContentTypeOK := false
-	fmt.Println(string(c.Request().Header.Method()), string(c.Request().URI().Path()), c.Get("content-type"))
+
+	// Log the request
+	fmt.Println(
+		"\r\nRequest :\r\n",
+		string(c.Request().Header.Header()),
+		"\r\nParameters :\r\n",
+		c.AllParams(),
+		"\r\nBody :\r\n",
+		string(c.Body()),
+		"\r\n-----------------------")
+
 	for _, accept := range strings.Split(endpointHandler.Endpoint.Accepts, " ") {
 		if accept == strings.ToLower(requestContentType) {
 			requestContentTypeOK = true
