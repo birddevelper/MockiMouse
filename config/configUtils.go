@@ -19,7 +19,7 @@ func (scenario Scenario) GetResponse() (string, error) {
 	}
 
 	if responseCount == 1 {
-		return scenario.Response[0], nil
+		return scenario.resolveResponse(0)
 	}
 
 	// select random index in response array
@@ -35,14 +35,15 @@ func (scenario Scenario) resolveResponse(responseIndex int) (string, error) {
 	const FILE_PREFIX = "file://"
 	const URL_PREFIX = "http"
 	const RESPONSE_FILE_FOLDER = "responses/"
-	if strings.HasPrefix(scenario.Response[responseIndex], FILE_PREFIX) {
-		response, err := readFromFile(RESPONSE_FILE_FOLDER + scenario.Response[0][7:])
+	rawResponse := strings.TrimLeft(scenario.Response[responseIndex], " ")
+	if strings.HasPrefix(rawResponse, FILE_PREFIX) {
+		response, err := readFromFile(RESPONSE_FILE_FOLDER + rawResponse[7:])
 		if err != nil {
 			return "", err
 		}
 		return string(response), nil
-	} else if strings.HasPrefix(scenario.Response[responseIndex], URL_PREFIX) {
-		response, err := readFromUrl(scenario.Response[responseIndex])
+	} else if strings.HasPrefix(rawResponse, URL_PREFIX) {
+		response, err := readFromUrl(rawResponse)
 		if err != nil {
 			return "", err
 		}
@@ -50,7 +51,7 @@ func (scenario Scenario) resolveResponse(responseIndex int) (string, error) {
 		return response, nil
 	}
 	// if the response is a simple text return it
-	return scenario.Response[responseIndex], nil
+	return rawResponse, nil
 
 }
 
