@@ -30,7 +30,8 @@ MockServer :
     method : GET
     scenarios :
      - description : no condition, always show same goodbye
-       response: goodbye
+       response: 
+        - goodbye
 ```
 
 Add unlimited scenarios for each endpoint and set multiple conditions for a scenario to trigger. For example for a login endpoint you can set two scenarios first for valid username and password and another scenario for invalid username and password :
@@ -58,7 +59,8 @@ MockServer :
               type : body
               operand : equal
               value : 1234
-       response: file://helloWorld.json
+       response: 
+         - file://helloWorld.json
        
      - description : When credintial is invalid
        condition :
@@ -71,7 +73,8 @@ MockServer :
               type : body
               operand : notEqual
               value : 1234
-       response : file://invalidCredintial.json
+       response : 
+         - file://invalidCredintial.json
        status : 200
 
 ```

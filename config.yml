@@ -20,7 +20,8 @@ MockServer :
               type : body
               operand : equal
               value : 1234
-       response: file://helloWorld.json
+       response: 
+        - file://helloWorld.json
        
      - description : When credintial is valid
        condition :
@@ -33,23 +34,25 @@ MockServer :
               type : body
               operand : notEqual
               value : 1234
-       response : file://invalidCredintial.json
+       response : 
+        - file://invalidCredintial.json
        status : 200
 
   - name : Home menu endpoint
     path : /home
-    accepts : text json
     method : GET
     delay : 0
     scenarios :
      - description : Agent is firefox
        condition :
          param :
-            - name : agent
+            - name : User-Agent
               type : header
-              operand : equal
-              value : firefox
-       response: Hello FireFox
+              operand : contain
+              value : Mozilla
+       response: 
+         - Hello FireFox
+         - Bye Chrome
        contentType : text/html; charset=utf-8
        status : 200
   - name : Profile endpoint
@@ -65,7 +68,8 @@ MockServer :
               type : path
               operand : equal
               value : 1
-       response: "{\"id\" : 1, \"name\" : \"Ali\" }"
+       response: 
+        - "{\"id\" : 1, \"name\" : \"Ali\" }"
        contentType : application/json; charset=utf-8
        status : 200
 
@@ -76,7 +80,8 @@ MockServer :
               type : path
               operand : notEqual
               value : 1
-       response: "{\"message\" : \"no found\" }"
+       response: 
+         - "{\"message\" : \"no found\" }"
        status : 404
   - name : Products list Endpoint
     path : /productList
@@ -91,7 +96,8 @@ MockServer :
               type : query
               operand : equal
               value : 2
-       response: file://prodcut_limit2.json
+       response: 
+         - file://prodcut_limit2.json
        contentType : application/json; charset=utf-8
        status : 200
 
@@ -102,7 +108,8 @@ MockServer :
               type : query
               operand : equal
               value : 4
-       response: file://prodcut_limit4.json
+       response:
+         - file://prodcut_limit4.json
        contentType : application/json; charset=utf-8
        status : 200
 
@@ -112,6 +119,7 @@ MockServer :
     delay : 1000
     scenarios :
      - description : no condition, always show same response
-       response: Hi there, it is a general endpoint, no condition
+       response:
+         - Hi there, it is a general endpoint, no condition
        contentType : text/html
        status : 200
