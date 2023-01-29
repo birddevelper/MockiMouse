@@ -2,24 +2,47 @@ package config
 
 import (
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 func (scenario Scenario) GetResponse() (string, error) {
+
+	responseCount := len(scenario.Response)
+
+	if responseCount == 0 {
+		return "No response", nil
+	}
+
+	if responseCount == 1 {
+		return scenario.Response[0], nil
+	}
+
+	// select random index in response array
+	rand.Seed(time.Now().UnixNano())
+	selectedResponseIndex := rand.Intn(responseCount)
+
+	//return the randomly selected response
+	return scenario.resolveResponse(selectedResponseIndex)
+
+}
+
+func (scenario Scenario) resolveResponse(responseIndex int) (string, error) {
 	const FILE_PREFIX = "file://"
 	const URL_PREFIX = "http"
 	const RESPONSE_FILE_FOLDER = "responses/"
-	if strings.HasPrefix(scenario.Response, FILE_PREFIX) {
-		response, err := readFromFile(RESPONSE_FILE_FOLDER + scenario.Response[7:])
+	if strings.HasPrefix(scenario.Response[responseIndex], FILE_PREFIX) {
+		response, err := readFromFile(RESPONSE_FILE_FOLDER + scenario.Response[0][7:])
 		if err != nil {
 			return "", err
 		}
 		return string(response), nil
-	} else if strings.HasPrefix(scenario.Response, URL_PREFIX) {
-		response, err := readFromUrl(scenario.Response)
+	} else if strings.HasPrefix(scenario.Response[responseIndex], URL_PREFIX) {
+		response, err := readFromUrl(scenario.Response[responseIndex])
 		if err != nil {
 			return "", err
 		}
@@ -27,7 +50,7 @@ func (scenario Scenario) GetResponse() (string, error) {
 		return response, nil
 	}
 	// if the response is a simple text return it
-	return scenario.Response, nil
+	return scenario.Response[responseIndex], nil
 
 }
 

@@ -23,9 +23,9 @@ type Scenario struct {
 	Condition   struct {
 		Params []Param `yaml:"param"`
 	} `yaml:"condition,omitempty"`
-	Response    string `yaml:"response"`
-	ContentType string `yaml:"contentType,omitempty"`
-	Status      int    `yaml:"status,omitempty"`
+	Response    []string `yaml:"response"`
+	ContentType string   `yaml:"contentType,omitempty"`
+	Status      int      `yaml:"status,omitempty"`
 }
 
 type Param struct {
