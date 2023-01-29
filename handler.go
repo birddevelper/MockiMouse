@@ -19,6 +19,7 @@ func (endpointHandler *EndpointHandler) handler(c *fiber.Ctx) error {
 
 	requestContentType := c.Get("content-type")
 	requestContentTypeOK := false
+	fmt.Println(string(c.Request().Header.Method()), string(c.Request().URI().Path()), c.Get("content-type"))
 	for _, accept := range strings.Split(endpointHandler.Endpoint.Accepts, " ") {
 		if accept == strings.ToLower(requestContentType) {
 			requestContentTypeOK = true
@@ -31,7 +32,7 @@ func (endpointHandler *EndpointHandler) handler(c *fiber.Ctx) error {
 		return c.SendString("400 Bad Request")
 	}
 
-	scenario := endpointHandler.getMatchSenario(c)
+	scenario := endpointHandler.getMatchScenario(c)
 
 	// if ContentType is set in senario, set it to response header
 	if scenario.ContentType != "" {
@@ -52,7 +53,7 @@ func (endpointHandler *EndpointHandler) handler(c *fiber.Ctx) error {
 
 }
 
-func (endpointHandler *EndpointHandler) getMatchSenario(c *fiber.Ctx) cfg.Scenario {
+func (endpointHandler *EndpointHandler) getMatchScenario(c *fiber.Ctx) cfg.Scenario {
 
 	// if there exist only one senario and it has no parametes, return it
 	if len(endpointHandler.Endpoint.Scenarios) == 1 &&
@@ -143,5 +144,8 @@ func (endpointHandler *EndpointHandler) getMatchSenario(c *fiber.Ctx) cfg.Scenar
 		}
 	}
 
-	return cfg.Scenario{Response: "None of Secnarios matched with given parameter(s)", Status: 404}
+	notFoundScenario := cfg.Scenario{Status: 404}
+	notFoundScenario.Response = []string{"None of Secnarios matched with given parameter(s)"}
+
+	return notFoundScenario
 }
