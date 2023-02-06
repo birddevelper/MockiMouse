@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/gofiber/fiber/v2/middleware/cors"
+
 	cfg "github.com/birddevelper/mockimouse/config"
 	"github.com/birddevelper/mockimouse/utils"
 	"github.com/gofiber/fiber/v2"
@@ -16,6 +18,7 @@ func main() {
 
 	// static files such as image or css files
 	app.Static(cfg.ConfigResolver.GetStatics(), "./assets")
+	app.Use(cors.New())
 	endpoints := cfg.ConfigResolver.GetEndPoints()
 
 	// print endpoint information
