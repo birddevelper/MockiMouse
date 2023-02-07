@@ -24,7 +24,8 @@ MockServer :
     method : GET
     scenarios :
      - description : no condition, always show same response
-       response: Welcome to Hello wrold
+       response: 
+        - Welcome to Hello wrold
   - name : My second endpoint
     path : /goodbye
     method : GET
