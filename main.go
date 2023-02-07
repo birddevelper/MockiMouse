@@ -22,7 +22,7 @@ func main() {
 	endpoints := cfg.ConfigResolver.GetEndPoints()
 
 	// print endpoint information
-	utils.PrintEndpointsInfo(endpoints)
+	utils.PrintEndpointsInfo(endpoints, cfg.ConfigResolver.GetPort())
 
 	// initiate endpointHandlers
 	endpointHandlers := make([]EndpointHandler, len(endpoints))

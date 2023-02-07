@@ -27,7 +27,7 @@ func GetParamFromJson(body []byte, path string) (string, error) {
 	return "", errors.New("can not retrieve the parameter")
 }
 
-func PrintEndpointsInfo(endpoints []cfg.EndPoint) {
+func PrintEndpointsInfo(endpoints []cfg.EndPoint, port int) {
 
 	logo := `                                                                                                   
                                                                                                     
@@ -50,6 +50,7 @@ func PrintEndpointsInfo(endpoints []cfg.EndPoint) {
 																									 `
 	fmt.Println(logo)
 
+	fmt.Println("MockiMouse initialized with port ", port)
 	fmt.Println("-------------------------")
 	for i, endpoint := range endpoints {
 		fmt.Println(i+1, "- ", endpoint.Name, " : ", endpoint.Method, " ", endpoint.Path)
