@@ -9,7 +9,7 @@
 Develop your UI without any concern about the backend. MockiMouse is a mock server that helps you make dynamic fake API to test or demo your frontend project.
 
 ## How to use
-MockiMouse is easy to use, and easy to run. In a few lines of Yamel config file you can start serving requests from frontend. Let's start :
+MockiMouse is easy to use, and easy to run. In a few lines of YAML config file you can start serving requests from frontend. Let's start :
 
 The below config is the simplest possible mock server to run. Two endpoints with single senarios without any conditional response. 
 
