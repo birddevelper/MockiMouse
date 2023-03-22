@@ -2,7 +2,7 @@
 
 
 <p align="center">
-<img src="https://mshaeri.com/blog/wp-content/uploads/2023/01/mockimouse_mockserver.png"  height="200" >
+<img src="https://raw.githubusercontent.com/birddevelper/MockiMouse/master/mockimouse_icon.png"  height="200" >
 </p>
 
 
