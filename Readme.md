@@ -84,9 +84,13 @@ Put your message file in **responses** folder beside the MockiMouse binary file 
 
 Run the server binary in any operating system and enjoy it :
 
+Win OS:
+
 ```bash
 c:\myFakeServer\mockimouse.exe 
 ```
+
+
 
 
 <p align="center">
