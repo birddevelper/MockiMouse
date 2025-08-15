@@ -7,9 +7,9 @@ MockServer :
     path : /login
     accepts : application/json
     method : POST
-    delay : 3000
+    delay : 0
     scenarios :
-     - description : When credintial is valid
+     - description : When credential is valid
        condition :
          param :
             - name : username
@@ -23,7 +23,7 @@ MockServer :
        response: 
         - file://helloWorld.json
        
-     - description : When credintial is valid
+     - description : When credential is invalid
        condition :
           param :
             - name : username
@@ -122,4 +122,28 @@ MockServer :
        response:
          - Hi there, it is a general endpoint, no condition
        contentType : text/html
+       status : 200
+
+  - name : Array Body
+    path : /eventsWebHook
+    method : POST
+    scenarios :
+     - description : no condition, always show same response
+       condition :
+         param :
+            - name : $root[0].event_type
+              type : body
+              operand : equal
+              value : file_upload
+            - name : $root[0].data[0]
+              type : body
+              operand : equal
+              value : "my_beautiful_file.jpg"
+            - name : $root[1].data[0].subject
+              type : body
+              operand : equal
+              value : subscribe
+       response:
+         - "{\"message\" : \"Got array\" }"
+       contentType : application/json; charset=utf-8
        status : 200
