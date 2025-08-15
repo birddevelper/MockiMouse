@@ -1,0 +1,54 @@
+name: Go Release
+
+on:
+  push:
+    tags:
+      - 'v*' # triggers only on tags like v1.0.0
+
+permissions:
+  contents: write  # needed for creating releases
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+
+      # Build Linux
+      - name: Build for Linux
+        run: |
+          GOOS=linux GOARCH=amd64 go build -o mockimouse-linux-amd64
+          cp config.yml ./config.yml
+          zip mockimouse-linux-amd64.zip mockimouse-linux-amd64 config.yml
+
+      # Build Windows
+      - name: Build for Windows
+        run: |
+          GOOS=windows GOARCH=amd64 go build -o mockimouse-windows-amd64.exe
+          cp config.yml ./config.yml
+          zip mockimouse-windows-amd64.zip mockimouse-windows-amd64.exe config.yml
+
+      # Build macOS
+      - name: Build for macOS
+        run: |
+          GOOS=darwin GOARCH=amd64 go build -o mockimouse-darwin-amd64
+          cp config.yml ./config.yml
+          zip mockimouse-darwin-amd64.zip mockimouse-darwin-amd64 config.yml
+
+      # Create the release with zipped files
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "Release ${{ github.ref_name }}"
+          body: "Automated release for ${{ github.ref_name }}"
+          files: |
+            mockimouse-linux-amd64.zip
+            mockimouse-windows-amd64.zip
+            mockimouse-darwin-amd64.zip
